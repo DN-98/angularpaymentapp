@@ -1,0 +1,45 @@
+<div class="z-10 bg-black bg-opacity-50 h-screen w-screen fixed inset-0">
+    <div class="flex w-full h-full justify-center items-center">
+        <div class="w-1/2 h-fit bg-white p-8">
+            <form class="flex flex-wrap w-full px-8" [formGroup]="paymentForm" (ngSubmit)="onPaymentForm()">
+                <h1 *ngIf="isCreate" class="text-3xl text-gray-900 text-center w-full my-4">ADD NEW PAYMENT CARD</h1>
+                <h1 *ngIf="isEdit" class="text-3xl text-gray-900 text-center w-full my-4">EDIT PAYMENT CARD</h1>
+                <div class="flex flex-wrap w-full items-center my-2 ">
+                    <fa-icon class="flex-none w-14 rounded-l-lg block p-2 bg-gray-200 text-center" [icon]="faUser" ></fa-icon>
+                    <input formControlName="cardOwnerName" type="text" class="flex-grow p-2 border-gray-300 bg-gray-100 focus:outline-none  focus:text-gray-900 focus:bg-opacity-50" placeholder="Card Owner Name . .">
+                    <p *ngIf="cardOwnerName && cardOwnerName.invalid" class="w-full text-red-500 text-center">number and uniqe char cannot be accepted</p>
+                </div>
+                <div class="w-1/2 my-2 ">
+                    <div class="flex flex-wrap w-full">
+                        <fa-icon class="flex-none w-14 rounded-l-lg block p-2 bg-gray-200 text-center" [icon]="faLock" ></fa-icon>
+                        <input formControlName="securityCode" type="password" class="mr-2 flex-grow p-2 border-gray-300 bg-gray-100 focus:outline-none  focus:text-gray-900 focus:bg-opacity-50" placeholder="Security Code . .">
+                    </div>
+                </div>
+                <div class="w-1/2 my-2 ">
+                    <div class="flex flex-wrap w-full">
+                        <fa-icon class="ml-2 flex-none w-14 rounded-l-lg block p-2 bg-gray-200 text-center" [icon]="faCalendar" ></fa-icon>
+                        <input formControlName="expirationDate" type="date" class=" flex-grow p-2 border-gray-300 bg-gray-100 focus:outline-none  focus:text-gray-900 focus:bg-opacity-50" min="{{minDate}}" placeholder="Expiration Date . .">
+                    </div>
+                </div>
+
+                <p class="w-1/2 text-red-500 text-center"><span  *ngIf="securityCode && securityCode.invalid"> must be a 3-digit number </span></p>
+                <p  class="w-1/2 text-red-500 text-center"><span *ngIf="expirationDate && expirationDate.invalid" >Input not valid</span></p>
+                <div class="w-1/2 p-2">
+                    <button (click)="cancelEdit()" class="w-full text-xl p-2 bg-gray-200 text-black rounded-lg hover:bg-gray-400">
+                        CANCEL
+                    </button>
+                </div>
+                <div *ngIf="isEdit"  class="w-1/2 p-2">
+                    <button [disabled]="paymentForm.invalid" [ngClass]="{'bg-opacity-50 cursor-not-allowed': paymentForm.invalid}" type="submit" class="w-full text-xl p-2 bg-black text-white rounded-lg hover:bg-opacity-80">
+                        <fa-icon class="mx-4" [icon]="faSave"></fa-icon>SAVE
+                    </button>
+                </div>
+                <div *ngIf="isCreate" class="w-1/2 p-2">
+                    <button [disabled]="paymentForm.invalid" [ngClass]="{'bg-opacity-50 cursor-not-allowed': paymentForm.invalid}"  type="submit" class="w-full text-xl p-2 bg-black text-white rounded-lg hover:bg-opacity-80">
+                        <fa-icon class="mx-4" [icon]="faCreditCard"></fa-icon>CREATE
+                    </button>   
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

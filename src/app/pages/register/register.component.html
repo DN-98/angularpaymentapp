@@ -1,0 +1,26 @@
+<div class="flex min-h-screen w-screen justify-center items-center bg-gray-200">
+    <div class="w-2/6 text-center bg-white shadow-md rounded-xl p-8">
+        <form class="p-4" [formGroup]="registerForm" (ngSubmit)="onRegister()">
+            <div class="flex flex-wrap w-full items-center px-4">
+                <h1 class="text-4xl text-gray-900 self-center w-full py-2">REGISTER</h1>
+                <div class="flex flex-wrap w-full items-center my-2">
+                    <fa-icon class="flex-none w-14 rounded-l-lg block p-2 bg-gray-200" [icon]="faUser"></fa-icon>
+                    <input formControlName="username" type="text" class="flex-grow p-2 border-gray-300 bg-gray-100 focus:outline-none  focus:text-gray-900 focus:bg-opacity-50" placeholder="Masukan Username . .">
+                </div>
+                <div *ngIf="getUsername && getUsername.invalid" class="w-full text-red-500">{{userStatus}}</div>
+                <div class="flex flex-wrap w-full items-center my-2">
+                    <fa-icon class="flex-none w-14 rounded-l-lg block p-2 bg-gray-200" [icon]="faEnvelope"></fa-icon>
+                    <input formControlName="email" type="text" class="flex-grow p-2 border-gray-300 bg-gray-100 focus:outline-none  focus:text-gray-900 focus:bg-opacity-50" placeholder="Masukan Email . .">
+                </div>
+                <div *ngIf="getEmail && getEmail.invalid" class="w-full text-red-500">{{emailStatus}}</div>
+                <div class="flex flex-wrap w-full items-center my-2">
+                    <fa-icon class="flex-none w-14 rounded-l-lg block p-2 bg-gray-200" [icon]="faLock"></fa-icon>
+                    <input formControlName="password" type="password" class="flex-grow p-2 border-gray-300 bg-gray-100 focus:outline-none focus:text-gray-900 focus:bg-opacity-50" placeholder="Masukan Password . .">
+                    <div *ngIf="getPass && getPass.invalid" class="w-full text-red-500 p-2">{{passStatus}}</div>
+                </div>
+                <button [disabled]="registerForm.invalid" [ngClass]="{'bg-opacity-50 cursor-not-allowed': registerForm.invalid}" type="submit" class="text-xl p-2 bg-black text-white rounded-lg w-full hover:bg-opacity-80">REGISTER</button>
+                <p class="text-gray-400 w-full">Already have an account ? Let's <a class="text-gray-700 underline hover:text-gray-900" routerLink="/login">Sign In</a></p>
+            </div>
+        </form>
+    </div>
+</div>

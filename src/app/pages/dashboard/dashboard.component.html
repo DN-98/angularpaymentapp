@@ -1,0 +1,49 @@
+<div class="flex flex-row">
+    <app-sidebar class="flex-none"></app-sidebar>
+    <div class="flex-grow bg-gray-100 py-8 px-2">
+        <div class="flex justify-between">
+            
+            <div class="flex flex-row w-40 items-center ">
+                <input [formControl]="searchName" type="text" class="flex-none p-2 border-gray-300 bg-white focus:outline-none  focus:text-gray-900 focus:bg-opacity-50" placeholder="cari nama ..">
+                <fa-icon class="flex-grow w-14 rounded-r-lg block p-2 bg-gray-200" [icon]="faSearch" ></fa-icon>
+            </div>
+            <div>
+                <button (click)="handleClickTambah()" class="p-2 px-8 bg-black text-white"><fa-icon [icon]="faPlusSquare" class="mx-2"></fa-icon>ADD PAYMENT CARD</button>
+            </div>
+        </div>
+        <div class="w-full my-4">
+            <table class="w-full text-center divide-y">
+                <tr class="divide-x bg-gray-300">
+                    <th class="p-4">No</th>
+                    <th class="w-2/6">Card Owner Name</th>
+                    <th class="w-2/6">Expiration Date</th>
+                    <th class="w-2/6">Action</th>
+                </tr>
+                <ng-container *ngIf="!isFilter">
+                <tr  *ngFor="let item of paymentDetail" class="divide-x hover:bg-gray-200">
+                    <td class="p-2">{{item.paymentDetailId}}</td>
+                    <td class="px-4 text-left">{{item.cardOwnerName}}</td>
+                    <td>{{item.expirationDate.toLocaleString()}}</td>
+                    <td>
+                        <button (click)="handleClickEdit(item)" class="hover:opacity-50"><fa-icon [icon]="faEdit" class="mx-2"></fa-icon></button>
+                        <button (click)="handleClickDelete(item.paymentDetailId)" class="text-red-500 hover:opacity-50" ><fa-icon [icon]="faTrash" class="mx-2"></fa-icon></button>
+                    </td>
+                </tr>
+                </ng-container>
+                
+                <ng-container *ngIf="isFilter">
+                <tr *ngFor="let item of paymentFilter" class="divide-x hover:bg-gray-200">
+                    <td class="p-2">{{item.paymentDetailId}}</td>
+                    <td class="px-4 text-left">{{item.cardOwnerName}}</td>
+                    <td>{{item.expirationDate.toLocaleString()}}</td>
+                    <td>
+                        <button (click)="handleClickEdit(item)" class="hover:opacity-50"><fa-icon [icon]="faEdit" class="mx-2"></fa-icon></button>
+                        <button (click)="handleClickDelete(item.paymentDetailId)" class="text-red-500 hover:opacity-50" ><fa-icon [icon]="faTrash" class="mx-2"></fa-icon></button>
+                    </td>
+                </tr>
+                </ng-container>
+            </table>
+        </div>
+    </div>
+</div>
+<app-modal *ngIf="isModal" [modalState] = "modalState" (modalOpen)="modalCloseHandler($event)" [targetItem]="targetItem"></app-modal>

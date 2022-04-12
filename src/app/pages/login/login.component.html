@@ -1,0 +1,44 @@
+<div class="flex min-h-screen w-screen justify-center items-center bg-gray-200">
+    <div class="w-2/6 text-center bg-white shadow-md rounded-xl p-8">
+        <form class="" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <div class="flex flex-wrap w-full items-center p-4">
+                <h1 class="text-4xl text-gray-900 self-center w-full py-2">Login</h1>
+                <div class="flex flex-wrap w-full items-center my-2">
+                    <fa-icon class="flex-none w-14 rounded-l-lg block p-2 bg-gray-200" [icon]="faEnvelope"></fa-icon>
+                    <input formControlName="email" type="text" class="flex-grow p-2 border-gray-300 bg-gray-100 focus:outline-none  focus:text-gray-900 focus:bg-opacity-50" placeholder="Masukan Email . .">
+                </div>
+                <div *ngIf="getEmail && getEmail.invalid" class="w-full text-red-500">Field Required</div>
+                <div class="flex flex-wrap w-full items-center my-2">
+                    <fa-icon class="flex-none w-14 rounded-l-lg block p-2 bg-gray-200" [icon]="faLock"></fa-icon>
+                    <input formControlName="password" type="password" class="flex-grow p-2 border-gray-300 bg-gray-100 focus:outline-none focus:text-gray-900 focus:bg-opacity-50" placeholder="Masukan Password . .">
+                </div>
+                <div *ngIf="getPass && getPass.invalid" class="w-full text-red-500">{{passStatus}}</div>
+                <div class=" flex items-center w-full">
+                    <input [formControl]="rememberMe" class="mx-2" type="checkbox">
+                    <label class="text-gray-400">Remember Me</label>
+                </div>
+                <button [disabled]="loginForm.invalid" [ngClass]="{'bg-opacity-50 cursor-not-allowed': loginForm.invalid}" type="submit" class="w-full my-4 p-2 text-xl bg-black text-white rounded-lg hover:bg-opacity-80">Login</button>
+                <p class="text-gray-400 w-full">Don't have an account ? Let's <a class="text-gray-700 underline hover:text-gray-900" routerLink="/register">Sign Up</a></p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- <swal
+  #deleteSwal
+  title="Delete?"
+  text="This cannot be undone"
+  icon="question"
+  [showCancelButton]="true"
+  [focusCancel]="true"
+  (confirm)="deleteFile()">
+</swal>
+
+With [swal]:
+<button [swal]="deleteSwal">Delete</button>
+
+Or DIY:
+<button (click)="Toast.fire(({
+    icon: 'success',
+    title: 'Signed in successfully'
+    }))">Delete</button> -->
