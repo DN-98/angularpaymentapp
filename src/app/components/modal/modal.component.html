@@ -9,6 +9,11 @@
                     <input formControlName="cardOwnerName" type="text" class="flex-grow p-2 border-gray-300 bg-gray-100 focus:outline-none  focus:text-gray-900 focus:bg-opacity-50" placeholder="Card Owner Name . .">
                     <p *ngIf="cardOwnerName && cardOwnerName.invalid" class="w-full text-red-500 text-center">number and uniqe char cannot be accepted</p>
                 </div>
+                <div class="flex flex-wrap w-full items-center my-2 ">
+                    <fa-icon class="flex-none w-14 rounded-l-lg block p-2 bg-gray-200 text-center" [icon]="faCreditCard" ></fa-icon>
+                    <input formControlName="cardOwnerNumber" type="text" class="flex-grow p-2 border-gray-300 bg-gray-100 focus:outline-none focus:text-gray-900 focus:bg-opacity-50" placeholder="Card Owner Number . .">
+                    <p *ngIf="cardOwnerNumber && cardOwnerNumber.invalid" class="w-full text-red-500 text-center">12-digit number</p>
+                </div>
                 <div class="w-1/2 my-2 ">
                     <div class="flex flex-wrap w-full">
                         <fa-icon class="flex-none w-14 rounded-l-lg block p-2 bg-gray-200 text-center" [icon]="faLock" ></fa-icon>

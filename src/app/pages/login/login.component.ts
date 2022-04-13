@@ -91,6 +91,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.authService.isAuthenticated){
+      this.router.navigate(["dashboard"]);
+    }
     this.loginForm.valueChanges.subscribe(val => {
       if(this.loginForm.controls.password.errors){
         this.passStatus = 'Password must include:'

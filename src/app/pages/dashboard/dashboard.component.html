@@ -15,15 +15,17 @@
             <table class="w-full text-center divide-y">
                 <tr class="divide-x bg-gray-300">
                     <th class="p-4">No</th>
-                    <th class="w-2/6">Card Owner Name</th>
+                    <th class="w-1/6">Card Owner Name</th>
+                    <th class="w-2/6">Card Owner Number</th>
                     <th class="w-2/6">Expiration Date</th>
-                    <th class="w-2/6">Action</th>
+                    <th class="w-1/6">Action</th>
                 </tr>
                 <ng-container *ngIf="!isFilter">
                 <tr  *ngFor="let item of paymentDetail" class="divide-x hover:bg-gray-200">
                     <td class="p-2">{{item.paymentDetailId}}</td>
                     <td class="px-4 text-left">{{item.cardOwnerName}}</td>
-                    <td>{{item.expirationDate.toLocaleString()}}</td>
+                    <td class="px-4 text-left">{{item.cardOwnerNumber}}</td>
+                    <td>{{item.expirationDate}}</td>
                     <td>
                         <button (click)="handleClickEdit(item)" class="hover:opacity-50"><fa-icon [icon]="faEdit" class="mx-2"></fa-icon></button>
                         <button (click)="handleClickDelete(item.paymentDetailId)" class="text-red-500 hover:opacity-50" ><fa-icon [icon]="faTrash" class="mx-2"></fa-icon></button>
@@ -35,7 +37,8 @@
                 <tr *ngFor="let item of paymentFilter" class="divide-x hover:bg-gray-200">
                     <td class="p-2">{{item.paymentDetailId}}</td>
                     <td class="px-4 text-left">{{item.cardOwnerName}}</td>
-                    <td>{{item.expirationDate.toLocaleString()}}</td>
+                    <td class="px-4 text-left">{{item.cardOwnerNumber}}</td>
+                    <td>{{item.expirationDate}}</td>
                     <td>
                         <button (click)="handleClickEdit(item)" class="hover:opacity-50"><fa-icon [icon]="faEdit" class="mx-2"></fa-icon></button>
                         <button (click)="handleClickDelete(item.paymentDetailId)" class="text-red-500 hover:opacity-50" ><fa-icon [icon]="faTrash" class="mx-2"></fa-icon></button>

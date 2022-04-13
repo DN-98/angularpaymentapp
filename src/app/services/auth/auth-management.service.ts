@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { User } from 'src/app/models/user';
 import { Router } from '@angular/router';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,11 +16,6 @@ export class AuthManagementService {
   constructor(private http: HttpClient, public router: Router) { }
 
   get isAuthenticated(){
-    // let isTokenValid; 
-    // this.cekToken().subscribe(
-    //   () => { isTokenValid = true }, 
-    //   ()=> { isTokenValid = false }
-    // );
     return !!this.getAuthorizationToken();
   }
 
@@ -39,11 +35,6 @@ export class AuthManagementService {
     const api = `${this.endpoint}/api/authmanagement/register`;
     return this.http.post(api, user).pipe(catchError(this.errorHandler));
   }
-
-  // cekToken(){
-  //   const api = `${this.endpoint}/api/authmanagement/RefreshToken`;
-  //   return this.http.post(api, {"token" : sessionStorage.getItem('token'), "refreshToken" : sessionStorage.getItem('refreshToken')}).pipe(catchError(this.errorHandler));
-  // }
 
   errorHandler = (err: HttpErrorResponse) => {
     return throwError(err)

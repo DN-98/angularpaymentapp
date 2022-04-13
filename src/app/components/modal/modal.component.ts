@@ -15,6 +15,7 @@ export class ModalComponent implements OnChanges {
   @Input() targetItem: PaymentDetail = {
     paymentDetailId : 0,
     cardOwnerName :'',
+    cardOwnerNumber : '',
     expirationDate :'',
     securityCode : ''
   };
@@ -34,12 +35,17 @@ export class ModalComponent implements OnChanges {
 
   paymentForm = new FormGroup({
     cardOwnerName : new FormControl('', [Validators.required, Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(3)]),
+    cardOwnerNumber : new FormControl('', [Validators.required, Validators.pattern(/^[0-9]+$/), Validators.maxLength(12), Validators.minLength(12)]),
     expirationDate : new FormControl('', [Validators.required, this.ValidateDate]),
     securityCode : new FormControl('', [Validators.required, Validators.maxLength(3), Validators.minLength(3)])
   })
 
   get cardOwnerName(){
     return this.paymentForm.get('cardOwnerName');
+  }
+
+  get cardOwnerNumber(){
+    return this.paymentForm.get("cardOwnerNumber");
   }
 
   get expirationDate(){
@@ -63,8 +69,14 @@ export class ModalComponent implements OnChanges {
           }).then(()=>{
             this.isCreate=false;
             this.modalOpen.emit(false);
-          })
+          },)
           this.paymentForm.reset();
+        }, err => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Create Failed',
+            text: `Card Number has been used`
+          });
         });
       } else {
         Swal.showLoading();
@@ -80,6 +92,12 @@ export class ModalComponent implements OnChanges {
             this.modalOpen.emit(false);
           })
           this.paymentForm.reset();
+        },err => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Update Failed',
+            text: `Card Number has been used`
+          });
         });
       }
     }
@@ -90,6 +108,7 @@ export class ModalComponent implements OnChanges {
     this.targetItem = {
       paymentDetailId : 0,
       cardOwnerName :'',
+      cardOwnerNumber : '',
       expirationDate :'',
       securityCode : ''
     };
@@ -116,46 +135,6 @@ export class ModalComponent implements OnChanges {
     }
   }
 
-  constructor(public payment: PaymentDetailService) { 
-    let dateNow = new Date();
-    let dateString = dateNow.toLocaleDateString('id-ID', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-    })
-    this.minDate = [ dateString.slice(6), dateString.slice(3,5), dateString.slice(0,2)].join('-');
-  }
-
-  ngOnInit(){
-    this.paymentForm.valueChanges.subscribe((val)=>{
-      if(this.cardOwnerName?.invalid){
-        console.log(this.paymentForm.controls.cardOwnerName)
-      }
-      if(this.expirationDate?.invalid){
-        console.log(this.paymentForm.controls.expirationDate)
-      }
-      if(this.securityCode?.invalid){
-        console.log(this.paymentForm.controls.securityCode)
-      }
-      
-    })
-
-  }
-
-  ngOnChanges(changes : SimpleChanges): void {
-    this.setModal(this.modalState);
-    if(this.isEdit){
-      this.expDate = this.targetItem.expirationDate.slice(0,10);
-      let item = {
-        cardOwnerName : this.targetItem.cardOwnerName,
-        expirationDate : this.expDate,
-        securityCode : this.targetItem.securityCode
-      }
-      this.paymentForm.setValue(item);
-    }
-    
-  }
-
   ValidateDate(control: AbstractControl){
     let dateNow = new Date();
     let dateString = dateNow.toLocaleDateString('id-ID', {
@@ -169,6 +148,47 @@ export class ModalComponent implements OnChanges {
     if(dateVal < dateNow)
       return {invalidDate : true};
     return null;
+  }
+
+  constructor(public payment: PaymentDetailService) { 
+    let dateNow = new Date();
+    let dateString = dateNow.toLocaleDateString('id-ID', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })
+    this.minDate = [ dateString.slice(6), dateString.slice(3,5), dateString.slice(0,2)].join('-');
+  }
+
+  ngOnInit(){
+    this.paymentForm.valueChanges.subscribe((val)=>{
+      // if(this.cardOwnerName?.invalid){
+      //   console.log(this.paymentForm.controls.cardOwnerName)
+      // }
+      // if(this.expirationDate?.invalid){
+      //   console.log(this.paymentForm.controls.expirationDate)
+      // }
+      // if(this.securityCode?.invalid){
+      //   console.log(this.paymentForm.controls.securityCode)
+      // }
+      
+    })
+
+  }
+
+  ngOnChanges(changes : SimpleChanges): void {
+    this.setModal(this.modalState);
+    if(this.isEdit){
+      this.expDate = this.targetItem.expirationDate.slice(0,10);
+      let item = {
+        cardOwnerName : this.targetItem.cardOwnerName,
+        cardOwnerNumber : this.targetItem.cardOwnerNumber,
+        expirationDate : this.expDate,
+        securityCode : this.targetItem.securityCode
+      }
+      this.paymentForm.setValue(item);
+    }
+    
   }
 
 }

@@ -12,10 +12,8 @@ import { AuthManagementService } from '../auth/auth-management.service';
 })
 export class PaymentDetailService {
 
-  endpoint = `https://deah-payment-api.herokuapp.com/api`;
+  endpoint = `https://deah-angular-paymentapp-api.herokuapp.com/api`;
   // endpoint: string = `http://localhost:5000/api`;
-  // headers = new HttpHeaders().set('Authorization', `Bearer ${this.auth.getAuthorizationToken()}`).set('Content-Type', 'appilcation/json')
-  // headers = new HttpHeaders().set('Content-Type', 'appilcation/json')
   
   constructor(private http: HttpClient, public auth: AuthManagementService, public router: Router) { }
 
