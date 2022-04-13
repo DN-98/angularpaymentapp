@@ -92,7 +92,7 @@ export class DashboardComponent implements OnChanges {
       if(val !== ''){
         this.isFilter = true;
         let reg = new RegExp(`${val}`, 'i') 
-        this.paymentFilter = this.paymentDetail.filter((a: any)=> reg.test(a.cardOwnerName));
+        this.paymentFilter = this.paymentDetail.filter((a: any)=> reg.test(a.cardOwnerName) || reg.test(a.cardOwnerNumber ));
       } else {
         this.isFilter = false;
       }
